@@ -16,6 +16,11 @@ class PlatformSpecificExemplifyRunner implements ExemplifyRunner
     private $phpspecPath;
 
     /**
+     * @var string
+     */
+    private $phpspecConfig;
+
+    /**
      * @var CommandRunner
      */
     private $commandRunner;
@@ -33,11 +38,13 @@ class PlatformSpecificExemplifyRunner implements ExemplifyRunner
     public function __construct(
         CommandRunner $commandRunner,
         CachingExecutableFinder $executableFinder,
-        $phpspecPath
+        $phpspecPath,
+        $phpspecConfig
     ) {
         $this->commandRunner = $commandRunner;
         $this->executableFinder = $executableFinder;
         $this->phpspecPath = $phpspecPath;
+        $this->phpspecConfig = $phpspecConfig;
     }
 
     /**
@@ -50,9 +57,11 @@ class PlatformSpecificExemplifyRunner implements ExemplifyRunner
 
     public function runExemplifyCommand($className, $methodName)
     {
+        $phpspecConfigArgument = is_null($this->phpspecConfig) ? null : '--config ' . $this->phpspecConfig;
+
         $this->commandRunner->runCommand(
             $this->executableFinder->getExecutablePath(),
-            [$this->phpspecPath, self::COMMAND_NAME, '--confirm', $className, $methodName]
+            [$this->phpspecPath, self::COMMAND_NAME, $phpspecConfigArgument, '--confirm', $className, $methodName]
         );
     }
 }
