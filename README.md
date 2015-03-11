@@ -1,4 +1,4 @@
-PhpSpecExtension
+PhpSpecExtension 2
 ================
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/richardmiller/PhpSpecExtension/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/richardmiller/PhpSpecExtension/?branch=master)
